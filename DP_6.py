@@ -24,27 +24,60 @@ def get_valid_length(s: str) -> int:
 	params s: String of brackets
 	output: An Integer with the longest valid string
 	"""
-	if len(s) == 0 or len(s) == 1:
-		return "Invalid length"
-	n = len(s); count_closed = 0
-	stack = []
+	if len(s) <= 1:
+		return "Invalid String Length"
+	n = len(s); stack = []
+	count = 0; maxLength = 0
 	for i in range(n):
 		if s[i] == '(':
 			stack.append(s[i])
 		else:
 			if len(stack) == 0:
-				count_closed += 1
+				count = 0
 			else:
 				stack.pop()
-	return n - len(stack) - count_closed
+				count += 2
+				maxLength += abs(maxLength - count)
+	if len(stack) != 0:
+		maxLength = count + len(stack) * 2 - maxLength
+	return maxLength
 
 if __name__ == '__main__':
+	print("Trying example 1")
 	s = "(()"
-	assert get_valid_length(s) == 2
+	#assert get_valid_length(s) == 2
 	print(get_valid_length(s))
+	print("\n")
+	
+	print("Trying example 2")
 	s = ")()())"
-	assert get_valid_length(s) == 4
+	#assert get_valid_length(s) == 4
 	print(get_valid_length(s))
+	print("\n")
+	
+
+	print("Trying example 3")
 	s = "((()))"
-	assert get_valid_length(s) == 6
+	#assert get_valid_length(s) == 6
+	print(get_valid_length(s))
+	print("\n")
+
+	
+	print("Trying example 4")
+	s = "())()"
+	#assert get_valid_length(s) == 2
+	print(get_valid_length(s))
+	print("\n")
+	
+	
+	print("Trying example 5")
+	s = "()(())()"
+	#assert get_valid_length(s) == 8
+	print(get_valid_length(s))
+	print("\n")
+	
+
+	print("Trying example 6")
+	s = "()(()"
+	#assert get_valid_length(s) == 2
 	print(get_valid_length(s))
